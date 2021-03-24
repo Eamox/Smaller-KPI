@@ -1,8 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 import {formatType, lighten} from '../common'
 import { ComparisonDataPoint } from './ComparisonDataPoint'
+
+const GlobalStyle = createGlobalStyle`
+body {
+  background-color: ${props => props.backgroundColor}
+}`
 
 const DataPointsWrapper = styled.div`
   font-family: "Open Sans", "Noto Sans JP", "Noto Sans", "Noto Sans CJK KR", Helvetica, Arial, sans-serif;
@@ -10,7 +16,7 @@ const DataPointsWrapper = styled.div`
   flex-direction: ${props => props.layout === 'horizontal' ? 'row' : 'column'};
   align-items: center;
   height: 100%;
-  border-left: 5px solid ${props => props.headerBackground};
+  border-left: 5px solid ${props => props.borderColor};
   border-radius: 4px;
 `
 
@@ -136,9 +142,10 @@ class MultipleValue extends React.PureComponent {
         layout={config['orientation'] === 'auto' ? this.state.groupingLayout : config['orientation']}
         font={config['grouping_font']}
         style={{fontSize: `${this.state.fontSize}em`}}
-        headerBackground = {((firstPoint.value - restPoints[0].value) * (pos * 2 - 1)) < 0 ? "#02545F" : "#F3C911"}
+        borderColor = {((firstPoint.value - restPoints[0].value) * (pos * 2 - 1)) < 0 ? "#02545F" : "#F3C911"}
       >
               <>
+              <GlobalStyle backgroundColor = {config["tile_background"]} />
               <DataPointGroup 
                 comparisonPlacement={config[`comparison_direction_${firstPoint.name}`]}
                 key={`group_${firstPoint.name}`} 
