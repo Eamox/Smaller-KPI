@@ -62,7 +62,9 @@ const DataPointTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin: 5px 0;
-  color: #01535E
+  color: #01535E;
+  line-height: 23px;
+  height: 46px;
 `
 
 const DataPointValue = styled.div`
